@@ -21,7 +21,15 @@ createCanvas(640,480)
 */
 function draw() {
 background(255,200,100)
+
+push()
+noStroke()
+fill(255,255,255)
 rect(80,50,240,350)
+pop()
+
+noStroke()
 rect(380,50,240,200)
+noStroke()
 rect(80,420,500,40)
 }
