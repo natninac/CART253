@@ -1,15 +1,15 @@
 /**
- * Title of Project
- * Author Name
+ * Function calls work
+ * Nat Nina
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * Learning about function calls by doing a lil project
+ * 
  */
 
 "use strict";
 
 /**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
+ * Setup is this format because that was the instruction
 */
 function setup() {
 createCanvas(640,480)
@@ -17,7 +17,7 @@ createCanvas(640,480)
 
 
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * Tried to make a face with the rectangles
 */
 function draw() {
 background(255,200,100)
