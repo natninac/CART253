@@ -2,7 +2,7 @@
 
 Nat Nina
 
-[View this project online](URL_FOR_THE_RUNNING_PROJECT)
+[View this project online](https://natninac.github.io/CART253/Assignments/Art%20Jam/)
 
 ## Description
 
