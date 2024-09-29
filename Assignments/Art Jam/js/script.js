@@ -7,12 +7,24 @@
  */
 
 "use strict";
-
+// a bunch of words
+let words = ['p5.js', 'is', 'a', 'JavaScript', 'library', 'for', 'creative',
+    'coding', 'with', 'a', 'focus', 'on', 'making', 'coding', 'accessible', 'and',
+    'inclusive', 'for', 'artists', 'designers', 'educators', 'beginners', 'and',
+    'anyone', 'else!', 'p5.js', 'is', 'free', 'and', 'open-source', 'because', 
+    'we', 'believe', 'software', 'and', 'the', 'tools', 'to', 'learn', 'it',
+    'should', 'be', 'accessible', 'to', 'everyone', 'Using', 'the', 'metaphor',
+    'of', 'a', 'sketch', 'p5.js', 'has', 'a', 'full', 'set', 'of', 'drawing',
+    'functionality', 'However', "you're", 'not', 'limited', 'to', 'your',
+    'drawing', 'canvas', 'You', 'can', 'think', 'of', 'your', 'whole', 'browser',
+    'page', 'as', 'your', 'sketch', 'including', 'HTML5', 'objects', 'for', 'text',
+    'input', 'video', 'webcam', 'and', 'sound'];
 /**
  * Setup is this format because that was the instruction
 */
 function setup() {
 createCanvas(500,500)
+textAlign(CENTER);
 }
 
 //draw function
@@ -78,5 +90,12 @@ ellipse(mouseX - 40, 250, 100, 20);
 fill(255, 255, 255);
 noStroke();
 ellipse(mouseX - 40, 240, 80, 25);
+
+//random words at the bottom center of the canvas
+let randomWord = random(words); 
+fill(0); 
+textSize(24);
+text(randomWord, width / 2, height - 30);
+
 }
 
