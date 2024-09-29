@@ -92,10 +92,11 @@ noStroke();
 ellipse(mouseX - 40, 240, 80, 25);
 
 //random words at the bottom center of the canvas
-let randomWord = random(words); 
+if(frameCount % 60 == 0){
+    let randomWord = random(words); 
 fill(0); 
 textSize(24);
 text(randomWord, width / 2, height - 30);
-
+}
 }
 
