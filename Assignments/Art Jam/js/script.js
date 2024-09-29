@@ -8,17 +8,17 @@
 
 "use strict";
 // a bunch of words
-let words = ['p5.js', 'is', 'a', 'JavaScript', 'library', 'for', 'creative',
-    'coding', 'with', 'a', 'focus', 'on', 'making', 'coding', 'accessible', 'and',
-    'inclusive', 'for', 'artists', 'designers', 'educators', 'beginners', 'and',
-    'anyone', 'else!', 'p5.js', 'is', 'free', 'and', 'open-source', 'because', 
-    'we', 'believe', 'software', 'and', 'the', 'tools', 'to', 'learn', 'it',
-    'should', 'be', 'accessible', 'to', 'everyone', 'Using', 'the', 'metaphor',
-    'of', 'a', 'sketch', 'p5.js', 'has', 'a', 'full', 'set', 'of', 'drawing',
-    'functionality', 'However', "you're", 'not', 'limited', 'to', 'your',
-    'drawing', 'canvas', 'You', 'can', 'think', 'of', 'your', 'whole', 'browser',
-    'page', 'as', 'your', 'sketch', 'including', 'HTML5', 'objects', 'for', 'text',
-    'input', 'video', 'webcam', 'and', 'sound'];
+let words = ['believe', 'hoax', 'fear-mongering', 'myth', 'skepticism', 'manipulation', 'funding',
+    'not an emergency', 'censorship', 'indoctrination', 'narrative', 'truth', 'unproven', 'freedom', 'exaggeration', 'alarmism',
+    'panic', 'agenda', 'control', 'scam', 'bureaucracy', 'unproven', 'funding',
+    'fact', 'evidence', 'skeptic', 'hysteria', 'media', 'perspective', 'globalization', 'overreaction', 
+    'flawed', 'independence', 'unreliablie', 'distortion', 'liberal', 'conspiracy', 'driven', 'regulations', 'excessive',
+    'deniers', 'influence', 'misprepresentation', 'to', 'everyone', 'Using', 'the', 'metaphor',
+    'trends', 'a', 'tax', 'jobs', 'data', 'fear', 'solutions', 'resources', 'economy', 'cycles',
+    'consequences', 'activism', "outcomes", 'consensus', 'freedom', 'liberty', 'taxes',
+    'policy', 'fear', 'predictions', 'coercion', 'dystopia', 'dogma', 'intervention', 'hegemony', 'lobbying',
+    'anthropogenic', 'global', 'believe', 'problem', 'scientists', 'paradigm shift', 'retoric', 'uncertainty', 'compliance',
+    'nonpartisan', 'posturing', 'engagement', 'efficacy', 'viability'];
     
 //store word
 let theWord = "";
