@@ -20,11 +20,11 @@ let words = ['believe', 'hoax', 'fear-mongering', 'myth', 'skepticism', 'manipul
     'anthropogenic', 'global', 'believe', 'problem', 'scientists', 'paradigm shift', 'retoric', 'uncertainty', 'compliance',
     'nonpartisan', 'posturing', 'engagement', 'efficacy', 'viability'];
     
-//store word
+//store word shown on canvas
 let theWord = "";
 
 /**
- * Setup is this format because that was the instruction
+ * Setup contains canvas and the text alignment
 */
 function setup() {
 createCanvas(500,500)
