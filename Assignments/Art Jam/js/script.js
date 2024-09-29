@@ -7,6 +7,12 @@
  */
 
 "use strict";
+//radiohead song
+let song;
+function preload() {
+    song = loadSound('assets/sounds/Fitter Happier.mp3');
+}
+
 // a bunch of words
 let words = ['believe', 'hoax', 'fear-mongering', 'myth', 'skepticism', 'manipulation', 'funding',
     'not an emergency', 'censorship', 'indoctrination', 'narrative', 'truth', 'unproven', 'freedom', 'exaggeration', 'alarmism',
@@ -29,6 +35,7 @@ let theWord = "";
 function setup() {
 createCanvas(500,500)
 textAlign(CENTER);
+song = loadSound ('assets/sounds/Fitter Happier.mp3')
 }
 
 //draw function
@@ -103,4 +110,12 @@ if(frameCount % 60 == 0){
 fill(0); 
 textSize(24);
 text(theWord, width / 2, height - 30);
+}
+
+function mousePressed() {
+    if (song.isPlaying()) {
+      song.stop();
+    } else {
+      song.play();
+    }
 }
