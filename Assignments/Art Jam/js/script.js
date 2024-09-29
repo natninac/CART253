@@ -19,6 +19,10 @@ let words = ['p5.js', 'is', 'a', 'JavaScript', 'library', 'for', 'creative',
     'drawing', 'canvas', 'You', 'can', 'think', 'of', 'your', 'whole', 'browser',
     'page', 'as', 'your', 'sketch', 'including', 'HTML5', 'objects', 'for', 'text',
     'input', 'video', 'webcam', 'and', 'sound'];
+    
+//store word
+let theWord = "";
+
 /**
  * Setup is this format because that was the instruction
 */
@@ -30,7 +34,7 @@ textAlign(CENTER);
 //draw function
 function draw () {
     //change the entire canvas to black if mouseX is at the far right end
-    if (mouseX >= 480) {
+    if (mouseX >= 500) {
         background (0); // black background
         return; //stop drawing other shapes
     } else  {
@@ -57,7 +61,7 @@ function draw () {
     const x = Sun.x + random(-Sun.death,Sun.death);
     const y = Sun.y + random(-Sun.death,Sun.death);
     //size constrain
-    Sun.size = constrain (Sun.size, 100, 800);
+    Sun.size = constrain (Sun.size, 100, 950);
 
      //draws sun
      fill(Sun.fill.r, Sun.fill.g, Sun.fill.b);
@@ -93,10 +97,10 @@ ellipse(mouseX - 40, 240, 80, 25);
 
 //random words at the bottom center of the canvas
 if(frameCount % 60 == 0){
-    let randomWord = random(words); 
-fill(0); 
-textSize(24);
-text(randomWord, width / 2, height - 30);
-}
+    theWord = random(words); 
 }
 
+fill(0); 
+textSize(24);
+text(theWord, width / 2, height - 30);
+}
