@@ -48,5 +48,32 @@ function draw () {
      fill(Sun.fill.r, Sun.fill.g, Sun.fill.b);
      noStroke();
      circle(x, y, Sun.size);
+//draws grassy meadow
+fill(175, 225, 175);
+noStroke();
+ellipse(250, 450, 800, 250);
 
+//draws cloud one 
+fill(255, 255, 255);
+noStroke();
+ellipse(mouseX, 100, 400, 100);
+
+fill(255, 255, 255);
+noStroke();
+ellipse(mouseX, 40, 200, 100);
+
+//draws cloud two
+fill(255, 255, 255);
+noStroke();
+ellipse(mouseX + 200, 190, 150, 20);
+
+//draws cloud three
+fill(255, 255, 255);
+noStroke();
+ellipse(mouseX - 40, 250, 100, 20);
+
+fill(255, 255, 255);
+noStroke();
+ellipse(mouseX - 40, 240, 80, 25);
 }
+
