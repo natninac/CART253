@@ -24,4 +24,11 @@ function draw () {
     } else  {
         background (135, 206, 235);
     }
+    //custom variable for sun color
+    let sunRed = map(mouseX, 0, 500, 255, 255);
+    let sunGreen = map(mouseX, 0, 500, 255, 0);
+    //draws sun
+    fill (sunRed, sunGreen, 0)
+    noStroke ()
+    circle (400, 125, 100 + mouseX * 2)
 }
