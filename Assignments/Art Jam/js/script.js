@@ -27,8 +27,26 @@ function draw () {
     //custom variable for sun color
     let sunRed = map(mouseX, 0, 500, 255, 255);
     let sunGreen = map(mouseX, 0, 500, 255, 0);
-    //draws sun
-    fill (sunRed, sunGreen, 0)
-    noStroke ()
-    circle (400, 125, 100 + mouseX * 2)
+    //sun
+  let Sun = {
+    x: 400,
+    y: 125,
+    size: 100 + mouseX * 2,
+    fill: {
+      r: sunRed,
+      g: sunGreen,
+      b: 0
+    },
+    death:mouseY / 5
+    };
+    //shaking
+    Sun.death = constrain(Sun.death, 0, 15);
+    const x = Sun.x + random(-Sun.death,Sun.death);
+    const y = Sun.y + random(-Sun.death,Sun.death);
+
+     //draws sun
+     fill(Sun.fill.r, Sun.fill.g, Sun.fill.b);
+     noStroke();
+     circle(x, y, Sun.size);
+
 }
