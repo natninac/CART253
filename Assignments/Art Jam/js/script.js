@@ -24,6 +24,7 @@ function draw () {
     } else  {
         background (135, 206, 235);
     }
+
     //custom variable for sun color
     let sunRed = map(mouseX, 0, 500, 255, 255);
     let sunGreen = map(mouseX, 0, 500, 255, 0);
@@ -43,6 +44,8 @@ function draw () {
     Sun.death = constrain(Sun.death, 0, 15);
     const x = Sun.x + random(-Sun.death,Sun.death);
     const y = Sun.y + random(-Sun.death,Sun.death);
+    //size constrain
+    Sun.size = constrain (Sun.size, 100, 800);
 
      //draws sun
      fill(Sun.fill.r, Sun.fill.g, Sun.fill.b);
