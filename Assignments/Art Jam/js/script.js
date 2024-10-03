@@ -2,7 +2,7 @@
  * Death of The Sun
  * Nat Nina
  * 
- * Nat's art jam assignment.
+ * Nat's art jam assignment!
  * 
  */
 
@@ -18,15 +18,15 @@ let words = ['believe', 'hoax', 'fear-mongering', 'myth', 'skepticism', 'manipul
     'not an emergency', 'censorship', 'indoctrination', 'narrative', 'truth', 'unproven', 'freedom', 'exaggeration', 'alarmism',
     'panic', 'agenda', 'control', 'scam', 'bureaucracy', 'unproven', 'funding',
     'fact', 'evidence', 'skeptic', 'hysteria', 'media', 'perspective', 'globalization', 'overreaction', 
-    'flawed', 'independence', 'unreliablie', 'distortion', 'liberal', 'conspiracy', 'driven', 'regulations', 'excessive',
-    'deniers', 'influence', 'misprepresentation', 'to', 'everyone', 'Using', 'the', 'metaphor',
-    'trends', 'a', 'tax', 'jobs', 'data', 'fear', 'solutions', 'resources', 'economy', 'cycles',
+    'flawed', 'independence', 'unreliable', 'distortion', 'liberal', 'conspiracy', 'driven', 'regulations', 'excessive',
+    'denier', 'influence', 'misrepresentation', 'everyone', 'Using', 'the', 'metaphor',
+    'trends', 'tax', 'jobs', 'data', 'fear', 'solutions', 'resources', 'economy', 'cycles',
     'consequences', 'activism', "outcomes", 'consensus', 'freedom', 'liberty', 'taxes',
     'policy', 'fear', 'predictions', 'coercion', 'dystopia', 'dogma', 'intervention', 'hegemony', 'lobbying',
-    'anthropogenic', 'global', 'believe', 'problem', 'scientists', 'paradigm shift', 'retoric', 'uncertainty', 'compliance',
+    'anthropogenic', 'global', 'believe', 'problem', 'scientists', 'paradigm shift', 'rhetoric', 'uncertainty', 'compliance',
     'nonpartisan', 'posturing', 'engagement', 'efficacy', 'viability'];
     
-//store word shown on canvas
+//store words shown on canvas
 let theWord = "";
 
 /**
@@ -49,25 +49,25 @@ function draw () {
     }
 
     //custom variable for sun color
-    let sunRed = map(mouseX, 0, 500, 255, 255);
-    let sunGreen = map(mouseX, 0, 500, 255, 0);
+    let sunRed = map(mouseX, 0, 500, 255, 255); //mouse changes color of sun on x-axis
+    let sunGreen = map(mouseX, 0, 500, 255, 0); //green goes to 0 to make red
     //sun object
   let Sun = {
     x: 400,
     y: 125,
-    size: 100 + mouseX * 2,
+    size: 100 + mouseX * 2, //mouse x-axis makes sun bigger
     fill: {
       r: sunRed,
       g: sunGreen,
       b: 0
     },
-    //sun shaking variable
+    //code from mr furious, mouse on y axis makes the sun shake
     death:mouseY / 5
     };
     //shaking
     Sun.death = constrain(Sun.death, 0, 15); // constrain amount of shaking
-    const x = Sun.x + random(-Sun.death,Sun.death);
-    const y = Sun.y + random(-Sun.death,Sun.death);
+    const x = Sun.x + random(-Sun.death,Sun.death); //random movement on x
+    const y = Sun.y + random(-Sun.death,Sun.death); //random movement on y
     //size constrain
     Sun.size = constrain (Sun.size, 100, 950);
 
@@ -116,12 +116,13 @@ pop()
 if(frameCount % 60 == 0){
     theWord = random(words); 
 }
-
-fill(0); 
-textSize(24);
-text(theWord, width / 2, height - 30);
+//word formatting
+fill(0); //black tecxt
+textSize(24); //size 24 text
+text(theWord, width / 2, height - 30); //words show up at the middle in the bottom
 }
 
+//code taken from p5 sketch, it plays/stops the song when the mouse is pressed
 function mousePressed() {
     if (song.isPlaying()) {
       song.stop();
