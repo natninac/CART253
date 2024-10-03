@@ -45,13 +45,13 @@ function draw () {
         background (0); // black background
         return; //stop drawing other shapes
     } else  {
-        background (135, 206, 235);
+        background (135, 206, 235); // regular background
     }
 
     //custom variable for sun color
     let sunRed = map(mouseX, 0, 500, 255, 255);
     let sunGreen = map(mouseX, 0, 500, 255, 0);
-    //sun
+    //sun object
   let Sun = {
     x: 400,
     y: 125,
@@ -61,10 +61,11 @@ function draw () {
       g: sunGreen,
       b: 0
     },
+    //sun shaking variable
     death:mouseY / 5
     };
     //shaking
-    Sun.death = constrain(Sun.death, 0, 15);
+    Sun.death = constrain(Sun.death, 0, 15); // constrain amount of shaking
     const x = Sun.x + random(-Sun.death,Sun.death);
     const y = Sun.y + random(-Sun.death,Sun.death);
     //size constrain
@@ -75,11 +76,14 @@ function draw () {
      noStroke();
      circle(x, y, Sun.size);
 //draws grassy meadow
+push ()
 fill(175, 225, 175);
 noStroke();
 ellipse(250, 450, 800, 250);
+pop ()
 
-//draws cloud one 
+//draws cloud one
+push () 
 fill(255, 255, 255);
 noStroke();
 ellipse(mouseX, 100, 400, 100);
@@ -87,20 +91,26 @@ ellipse(mouseX, 100, 400, 100);
 fill(255, 255, 255);
 noStroke();
 ellipse(mouseX, 40, 200, 100);
+pop()
 
 //draws cloud two
+push()
 fill(255, 255, 255);
 noStroke();
 ellipse(mouseX + 200, 190, 150, 20);
+pop()
 
 //draws cloud three
+push()
 fill(255, 255, 255);
 noStroke();
 ellipse(mouseX - 40, 250, 100, 20);
 
+
 fill(255, 255, 255);
 noStroke();
 ellipse(mouseX - 40, 240, 80, 25);
+pop()
 
 //random words at the bottom center of the canvas
 if(frameCount % 60 == 0){
