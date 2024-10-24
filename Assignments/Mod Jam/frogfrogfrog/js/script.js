@@ -49,10 +49,13 @@ const frog = {
 // Has a position, size, and speed of horizontal movement
 const fly = {
     x: 0,
-    y: 200, // Will be random
+    y: 200, // Will be random 
+    startY: 200,
     size: 10,
-    speed: 3
+    speed: { x:3,
+        y:3}
 };
+
 
 /**
  * Creates the canvas and initializes the fly
@@ -72,8 +75,11 @@ function draw() {
     moveTongue();
     drawFrog();
     checkTongueFlyOverlap();
-    moveEyes();
+    drawEyes();
+    drawCoordinates()
 }
+
+
 
 /**
  * Moves the fly according to its speed
@@ -81,11 +87,19 @@ function draw() {
  */
 function moveFly() {
     // Move the fly
-    fly.x += fly.speed;
+    fly.x += fly.speed.x;
+    fly.y += fly.speed.y;
     // Handle the fly going off the canvas
     if (fly.x > width) {
         resetFly();
     }
+    // keeps fly in constrained y path
+    if ( (fly.y > fly.startY + 50)  ||(fly.y < fly.startY - 50))  // if velocity less than height - the radius or
+    //velocity greater than radius
+  {
+    fly.speed.y = - fly.speed.y;
+    }
+
 }
 
 /**
@@ -105,6 +119,7 @@ function drawFly() {
 function resetFly() {
     fly.x = 0;
     fly.y = random(0, 300);
+    fly.startY = fly.y
 }
 
 /**
@@ -116,9 +131,17 @@ function moveFrog() {
 /**
  * Moves the frog to the mouse position on x
  */
-function moveEyes() {
+function drawEyes() {
     frog.eyeL.x = mouseX-50;
     frog.eyeR.x = mouseX+50;
+}
+
+function drawCoordinates(){
+text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
+stroke(0);
+textAlign(CENTER);
+  textSize(16)
+noFill();
 }
 
 /**
