@@ -14,6 +14,8 @@
  */
 
 "use strict";
+var health = 50;
+var maxHealth = 400;
 
 // Our frog
 const frog = {
@@ -56,6 +58,15 @@ const fly = {
         y:3}
 };
 
+const poison = {
+    x: 0,
+    y: 200, // Will be random 
+    startY: 100,
+    size: 7,
+    speed: { x:3,
+        y:3}
+};
+
 
 /**
  * Creates the canvas and initializes the fly
@@ -65,7 +76,9 @@ function setup() {
 
     // Give the fly its first random position
     resetFly();
+    resetPoisonFly();
 }
+
 
 function draw() {
     background("#87ceeb");
@@ -77,6 +90,9 @@ function draw() {
     checkTongueFlyOverlap();
     drawEyes();
     drawCoordinates()
+    drawHealthBar()
+    drawPoisonFly()
+    movePoisonFly()
 }
 
 
@@ -122,6 +138,36 @@ function resetFly() {
     fly.startY = fly.y
 }
 
+//Draws poison fly
+function drawPoisonFly() {
+    push ()
+    noStroke ()
+    fill ("#00FF00")
+    ellipse(poison.x, poison.y, poison.size)
+    pop()
+}
+function movePoisonFly() {
+    // Move the fly
+    poison.x += poison.speed.x;
+    poison.y += poison.speed.y;
+    // Handle the fly going off the canvas
+    if (poison.x > width) {
+        resetPoisonFly();
+    }
+    // keeps fly in constrained y path
+    if ( (poison.y > poison.startY + 70)  ||(poison.y < poison.startY - 70))  // if velocity less than height - the radius or
+    //velocity greater than radius
+  {
+    poison.speed.y = - poison.speed.y;
+    }
+
+}
+function resetPoisonFly() {
+    poison.x = 0;
+    poison.y = random(0, 300);
+    poison.startY = poison.y
+}
+
 /**
  * Moves the frog to the mouse position on x
  */
@@ -135,7 +181,7 @@ function drawEyes() {
     frog.eyeL.x = mouseX-50;
     frog.eyeR.x = mouseX+50;
 }
-
+//Draw coordinates of the cursor to correctly place things 
 function drawCoordinates(){
 text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
 stroke(0);
@@ -224,6 +270,9 @@ function drawFrog() {
      pop();
 }
 
+
+  
+
 /**
  * Handles the tongue overlapping the fly
  */
@@ -248,3 +297,15 @@ function mousePressed() {
         frog.tongue.state = "outbound";
     }
 }
+
+function drawHealthBar() {
+
+  
+    health = min(maxHealth, ++health);
+    
+    noStroke();
+    fill(255, 0, 0);
+    rect(10, 10, map(health, 0, maxHealth, 0, 200), 20);
+    
+  }
+
