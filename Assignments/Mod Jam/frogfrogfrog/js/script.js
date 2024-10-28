@@ -14,8 +14,12 @@
  */
 
 "use strict";
+
+//What is our health?
 var health = 50;
 var maxHealth = 400;
+//Is the game over?
+let gameOver = false;
 
 // Our frog
 const frog = {
@@ -51,7 +55,7 @@ const frog = {
 // Has a position, size, and speed of horizontal movement
 const fly = {
     x: 0,
-    y: 200, // Will be random 
+    y: 50, // Will be random 
     startY: 200,
     size: 10,
     speed: { x:3,
@@ -63,7 +67,7 @@ const poison = {
     y: 200, // Will be random 
     startY: 100,
     size: 7,
-    speed: { x:3,
+    speed: { x:1,
         y:3}
 };
 
@@ -77,10 +81,17 @@ function setup() {
     // Give the fly its first random position
     resetFly();
     resetPoisonFly();
+
+    //puts health at max in the beginning
+    health = maxHealth;
 }
 
 
 function draw() {
+    if (gameOver) {
+        endScreen();
+        return;
+    }
     background("#87ceeb");
     moveFly();
     drawFly();
@@ -88,14 +99,35 @@ function draw() {
     moveTongue();
     drawFrog();
     checkTongueFlyOverlap();
+    checkTonguePoisonOverlap();
     drawEyes();
     drawCoordinates()
     drawHealthBar()
     drawPoisonFly()
     movePoisonFly()
+
+    if (health <= 0) {
+        gameOver = true;
+    }
 }
 
+//End screen if game is over
+function endScreen() {
+    if (gameOver);
+        push();
+        background ("#FF0000")
+        textSize(30);
+        fill ('#00FF00')
+        textStyle(BOLD)
+        text ("YOU HAVE DIED OF...", width/2, height/3)
+        textSize(48);
+        fill ('#00FF00')
+    textStyle(BOLD);
+    textAlign(CENTER, CENTER);
+    text("RADIATION POISONING!!!", width/2, height/2);
+    pop();
 
+}
 
 /**
  * Moves the fly according to its speed
@@ -286,8 +318,27 @@ function checkTongueFlyOverlap() {
         resetFly();
         // Bring back the tongue
         frog.tongue.state = "inbound";
+        health = max(0,health + 10)
     }
 }
+/**
+ * Handles the tongue overlapping the fly
+ */
+function checkTonguePoisonOverlap() {
+    // Get distance from tongue to fly
+    const d = dist(frog.tongue.x, frog.tongue.y, poison.x, poison.y);
+    // Check if it's an overlap
+    const eaten = (d < frog.tongue.size/2 + poison.size/2);
+    if (eaten) {
+        // Reset the fly
+        resetPoisonFly();
+        // Bring back the tongue
+        frog.tongue.state = "inbound";
+        health = max(0,health - 100)
+    }
+    }
+
+
 
 /**
  * Launch the tongue on click (if it's not launched yet)
@@ -299,13 +350,11 @@ function mousePressed() {
 }
 
 function drawHealthBar() {
-
-  
-    health = min(maxHealth, ++health);
     
     noStroke();
     fill(255, 0, 0);
     rect(10, 10, map(health, 0, maxHealth, 0, 200), 20);
     
   }
+
 
