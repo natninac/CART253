@@ -30,16 +30,10 @@ const frog = {
         size: 150
     },
     //And eyes
-    eyeL: {
-        x:undefined,
-        y:450,
-        size:40
-    },
-    eyeR: {
-        x:undefined,
-        y:450,
-        size:40
-    },
+    eyes: [
+        { x: undefined, y: 450, size: 40 }, // Left eye
+        { x: undefined, y: 450, size: 40 }  // Right eye
+    ],
     
     // The frog's tongue has a position, size, speed, and state
     tongue: {
@@ -220,17 +214,34 @@ function moveFrog() {
  * Moves the frog to the mouse position on x
  */
 function drawEyes() {
-    frog.eyeL.x = mouseX-50;
-    frog.eyeR.x = mouseX+50;
+    frog.eyes[0].x = mouseX-50;
+    frog.eyes[1].x = mouseX+50;
+    // Draw left eye
+    fill("#ffffff");
+    noStroke();
+    ellipse(frog.eyes[0].x, frog.eyes[0].y, frog.eyes[0].size); // Left eye
+
+    // Draw right eye
+    fill("#ffffff");
+    noStroke();
+    ellipse(frog.eyes[1].x, frog.eyes[1].y, frog.eyes[1].size); // Right eye
+
+    // Draw left pupil
+    fill("#000000");
+    ellipse(frog.eyes[0].x, frog.eyes[0].y - 10, frog.eyes[0].size / 2); // Left pupil
+
+    // Draw right pupil
+    fill("#000000");
+    ellipse(frog.eyes[1].x, frog.eyes[1].y - 10, frog.eyes[1].size / 2); // Right pupil
 }
 // Function to draw the third eye on the frog's forehead
 function drawThirdEye() {
     push();
     fill("#ffffff");
     noStroke();
-    ellipse(frog.body.x, frog.body.y - 100, frog.eyeL.size); // Position the third eye
+    ellipse(frog.body.x, frog.body.y - 100, frog.eyes[1].size); // Position the third eye
     fill("#000000");
-    ellipse(frog.body.x, frog.body.y - 110, frog.eyeL.size / 2); // Draw the pupil
+    ellipse(frog.body.x, frog.body.y - 110, frog.eyes[1].size / 2); // Draw the pupil
     pop();
 }
 //Draw coordinates of the cursor to correctly place things 
@@ -301,32 +312,6 @@ function drawFrog() {
     noStroke();
     ellipse(frog.body.x, frog.body.y, frog.body.size);
     pop();
-    // Draw frog's left eye
-    push ()
-    fill("#ffffff");
-    noStroke()
-    ellipse(frog.eyeL.x, frog.eyeL.y, frog.eyeL.size)
-    pop()
-    // Draw frog's right eye
-    push ()
-    fill("#ffffff");
-    noStroke()
-    ellipse(frog.eyeR.x, frog.eyeR.y, frog.eyeR.size)
-    pop()
-
-     // Draw left pupil
-     push();
-     fill("#000000");
-     noStroke();
-     ellipse(frog.eyeL.x, frog.eyeL.y - 10, frog.eyeL.size / 2);
-     pop();
- 
-     // Draw right pupil
-     push();
-     fill("#000000");
-     noStroke();
-     ellipse(frog.eyeR.x, frog.eyeR.y - 10, frog.eyeL.size / 2);
-     pop();
 }
 
 
@@ -383,5 +368,3 @@ function drawHealthBar() {
     rect(10, 10, map(health, 0, maxHealth, 0, 200), 20);
     
   }
-
-
