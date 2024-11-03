@@ -15,9 +15,9 @@
 
 "use strict";
 
-//What is our health?
-var health = 50;
-var maxHealth = 400;
+//Health 
+let health = 50;
+const maxHealth = 400;
 //Is the game over?
 let gameOver = false;
 
@@ -40,6 +40,7 @@ const frog = {
         y:450,
         size:40
     },
+    
     // The frog's tongue has a position, size, speed, and state
     tongue: {
         x: undefined,
@@ -64,7 +65,7 @@ const fly = {
 
 const poison = {
     x: 0,
-    y: 200, // Will be random 
+    y: 200, // Will also be random 
     startY: 100,
     size: 7,
     speed: { x:1,
@@ -106,9 +107,18 @@ function draw() {
     drawPoisonFly()
     movePoisonFly()
 
+    // Check if health is below a number and draw the third eye
+    if (health < 200) {
+        drawThirdEye();
+
+    }
+
     if (health <= 0) {
         gameOver = true;
     }
+
+    
+
 }
 
 //End screen if game is over
@@ -213,6 +223,16 @@ function drawEyes() {
     frog.eyeL.x = mouseX-50;
     frog.eyeR.x = mouseX+50;
 }
+// Function to draw the third eye on the frog's forehead
+function drawThirdEye() {
+    push();
+    fill("#ffffff");
+    noStroke();
+    ellipse(frog.body.x, frog.body.y - 100, frog.eyeL.size); // Position the third eye
+    fill("#000000");
+    ellipse(frog.body.x, frog.body.y - 110, frog.eyeL.size / 2); // Draw the pupil
+    pop();
+}
 //Draw coordinates of the cursor to correctly place things 
 function drawCoordinates(){
 text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
@@ -254,6 +274,13 @@ function moveTongue() {
  * Displays the tongue (tip and line connection) and the frog (body)
  */
 function drawFrog() {
+
+    //Frog gets darker as it gets more poisoned
+    let fullHealth = color ("#00ff00");
+    let lowHealth = color("#000000");
+    let healthFactor = map(health, 0, maxHealth, 0, 1);
+    let frogColor = lerpColor(lowHealth,fullHealth,healthFactor);
+
     // Draw the tongue tip
     push();
     fill("#ff0000");
@@ -270,7 +297,7 @@ function drawFrog() {
 
     // Draw the frog's body
     push();
-    fill("#00ff00");
+    fill(frogColor);
     noStroke();
     ellipse(frog.body.x, frog.body.y, frog.body.size);
     pop();
@@ -318,11 +345,11 @@ function checkTongueFlyOverlap() {
         resetFly();
         // Bring back the tongue
         frog.tongue.state = "inbound";
-        health = max(0,health + 10)
+        health = min(maxHealth,health + 10)
     }
 }
 /**
- * Handles the tongue overlapping the fly
+ * Handles the tongue overlapping the poison fly
  */
 function checkTonguePoisonOverlap() {
     // Get distance from tongue to fly
