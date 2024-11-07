@@ -1,13 +1,14 @@
 /**
- * Frogfrogfrog
- * Pippin Barr
+ * Radiation Frog
+ * Nat Nina
  * 
  * A game of catching flies with your frog-tongue
  * 
  * Instructions:
  * - Move the frog with your mouse
  * - Click to launch the tongue
- * - Catch flies
+ * - Catch black flies
+ * - Avoid green radiation flies... Or die!
  * 
  * Made with p5
  * https://p5js.org/
@@ -17,25 +18,26 @@
 
 //Health 
 let health = 50;
-const maxHealth = 400;
+const maxHealth = 405;
+
 //Is the game over?
 let gameOver = false;
 
 // Our frog
 const frog = {
-    // The frog's body has a position and size
+    // The frog's body with its position and size
     body: {
         x: 320,
         y: 520,
         size: 150
     },
-    //And eyes
+    //The frog's two eyes array
     eyes: [
         { x: undefined, y: 450, size: 40 }, // Left eye
-        { x: undefined, y: 450, size: 40 }  // Right eye
+        { x: undefined, y: 450, size: 40 },  // Right eye
     ],
     
-    // The frog's tongue has a position, size, speed, and state
+    // The frog's tongue with its position, size, speed, and state
     tongue: {
         x: undefined,
         y: 480,
@@ -46,194 +48,161 @@ const frog = {
     }
 };
 
-// Our fly
-// Has a position, size, and speed of horizontal movement
-const fly = {
+// Fly has a position, size, speed of horizontal and vertical movement, fill and health effect
+let fly = {
     x: 0,
     y: 50, // Will be random 
-    startY: 200,
+    startY: 200, // Stores the start position
     size: 10,
+    fill: ("#000000"), //Black fly
     speed: { x:3,
-        y:3}
+        y:3},
+     healthEffect: + 10 //Add 10 health points when injested
 };
 
-const poison = {
+let poison = {
     x: 0,
     y: 200, // Will also be random 
-    startY: 100,
+    startY: 100, // Stores the start position
     size: 7,
+    fill: ("#00FF00"), //Green fly
     speed: { x:1,
-        y:3}
+        y:3}, //Speed on x and y axis
+    healthEffect: - 100, //Removes 100 health if injested
 };
 
-
-/**
- * Creates the canvas and initializes the fly
- */
+//Creates the canvas, initializes the fly and health
 function setup() {
     createCanvas(640, 480);
 
-    // Give the fly its first random position
-    resetFly();
-    resetPoisonFly();
-
-    //puts health at max in the beginning
+    // Give the flies their first random position
+    resetFly(fly);
+    resetFly(poison);
+   
+    //Puts health at max in the beginning
     health = maxHealth;
 }
 
 
 function draw() {
+
+    //Stops drawing if the game is over
     if (gameOver) {
         endScreen();
         return;
     }
+
+    //Functions
     background("#87ceeb");
-    moveFly();
-    drawFly();
+    
+    //Moves the flies
+    moveFly (fly);
+    moveFly(poison);
+
+    drawFly(fly);
+    drawFly(poison);
+
+    drawFrog();
+    drawEyes();
+    drawHealthBar();
+
     moveFrog();
     moveTongue();
-    drawFrog();
-    checkTongueFlyOverlap();
-    checkTonguePoisonOverlap();
-    drawEyes();
-    drawCoordinates()
-    drawHealthBar()
-    drawPoisonFly()
-    movePoisonFly()
+   
+    checkTongueFlyOverlap(fly);
+    checkTongueFlyOverlap(poison);
 
     // Check if health is below a number and draw the third eye
     if (health < 200) {
         drawThirdEye();
-
     }
 
+    //Game over if health is 0 or under
     if (health <= 0) {
         gameOver = true;
     }
-
-    
-
 }
+
 
 //End screen if game is over
 function endScreen() {
-    if (gameOver);
         push();
         background ("#FF0000")
+
+        //First line
         textSize(30);
         fill ('#00FF00')
         textStyle(BOLD)
-        text ("YOU HAVE DIED OF...", width/2, height/3)
+        text ("YOU HAVE DIED OF...", width/2, height/3);
+        
+        //Second line
         textSize(48);
         fill ('#00FF00')
-    textStyle(BOLD);
-    textAlign(CENTER, CENTER);
-    text("RADIATION POISONING!!!", width/2, height/2);
-    pop();
-
+        textStyle(BOLD);
+        textAlign(CENTER, CENTER);
+        text("RADIATION POISONING!!!", width/2, height/2);
+        pop();
 }
 
-/**
- * Moves the fly according to its speed
- * Resets the fly if it gets all the way to the right
- */
-function moveFly() {
-    // Move the fly
-    fly.x += fly.speed.x;
-    fly.y += fly.speed.y;
-    // Handle the fly going off the canvas
-    if (fly.x > width) {
-        resetFly();
+
+ //Moves the fly according to its speed
+ //Resets the fly if it gets all the way to the right
+ 
+function moveFly(element) {
+    // Move the flies
+    element.x += element.speed.x;
+    element.y += element.speed.y;
+    // Handle the flies going off the canvas
+    if (element.x > width) {
+        resetFly(element);
     }
-    // keeps fly in constrained y path
-    if ( (fly.y > fly.startY + 50)  ||(fly.y < fly.startY - 50))  // if velocity less than height - the radius or
-    //velocity greater than radius
+    // Keeps flies in constrained y path
+    if ( (element.y > element.startY + 50)  ||(element.y < element.startY - 50))
+   
+// Make flies change directions
   {
-    fly.speed.y = - fly.speed.y;
+    element.speed.y = - element.speed.y;
     }
-
 }
 
-/**
- * Draws the fly as a black circle
- */
-function drawFly() {
+//Draws both flies
+function drawFly(element) {
     push();
     noStroke();
-    fill("#000000");
-    ellipse(fly.x, fly.y, fly.size);
+    fill (element.fill);
+    ellipse(element.x, element.y, element.size);
     pop();
 }
 
-/**
- * Resets the fly to the left with a random y
- */
-function resetFly() {
-    fly.x = 0;
-    fly.y = random(0, 300);
-    fly.startY = fly.y
-}
-
-//Draws poison fly
-function drawPoisonFly() {
-    push ()
-    noStroke ()
-    fill ("#00FF00")
-    ellipse(poison.x, poison.y, poison.size)
-    pop()
-}
-function movePoisonFly() {
-    // Move the fly
-    poison.x += poison.speed.x;
-    poison.y += poison.speed.y;
-    // Handle the fly going off the canvas
-    if (poison.x > width) {
-        resetPoisonFly();
-    }
-    // keeps fly in constrained y path
-    if ( (poison.y > poison.startY + 70)  ||(poison.y < poison.startY - 70))  // if velocity less than height - the radius or
-    //velocity greater than radius
-  {
-    poison.speed.y = - poison.speed.y;
-    }
-
-}
-function resetPoisonFly() {
-    poison.x = 0;
-    poison.y = random(0, 300);
-    poison.startY = poison.y
-}
-
-/**
- * Moves the frog to the mouse position on x
- */
+ //Moves the frog to the mouse position on x
 function moveFrog() {
     frog.body.x = mouseX;
 }
-/**
- * Moves the frog to the mouse position on x
- */
+
+//Draws eyes 
 function drawEyes() {
-    frog.eyes[0].x = mouseX-50;
-    frog.eyes[1].x = mouseX+50;
+    frog.eyes[0].x = mouseX-50; //Array for left eye
+    frog.eyes[1].x = mouseX+50; //Array for right eye
+    
     // Draw left eye
     fill("#ffffff");
     noStroke();
-    ellipse(frog.eyes[0].x, frog.eyes[0].y, frog.eyes[0].size); // Left eye
+    ellipse(frog.eyes[0].x, frog.eyes[0].y, frog.eyes[0].size); 
 
     // Draw right eye
     fill("#ffffff");
     noStroke();
-    ellipse(frog.eyes[1].x, frog.eyes[1].y, frog.eyes[1].size); // Right eye
+    ellipse(frog.eyes[1].x, frog.eyes[1].y, frog.eyes[1].size);
 
     // Draw left pupil
     fill("#000000");
-    ellipse(frog.eyes[0].x, frog.eyes[0].y - 10, frog.eyes[0].size / 2); // Left pupil
+    ellipse(frog.eyes[0].x, frog.eyes[0].y - 10, frog.eyes[0].size / 2); 
 
     // Draw right pupil
     fill("#000000");
-    ellipse(frog.eyes[1].x, frog.eyes[1].y - 10, frog.eyes[1].size / 2); // Right pupil
+    ellipse(frog.eyes[1].x, frog.eyes[1].y - 10, frog.eyes[1].size / 2);
 }
+
 // Function to draw the third eye on the frog's forehead
 function drawThirdEye() {
     push();
@@ -244,18 +213,8 @@ function drawThirdEye() {
     ellipse(frog.body.x, frog.body.y - 110, frog.eyes[1].size / 2); // Draw the pupil
     pop();
 }
-//Draw coordinates of the cursor to correctly place things 
-function drawCoordinates(){
-text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
-stroke(0);
-textAlign(CENTER);
-  textSize(16)
-noFill();
-}
 
-/**
- * Handles moving the tongue based on its state
- */
+ //Handles moving the tongue based on its state
 function moveTongue() {
     // Tongue matches the frog's x
     frog.tongue.x = frog.body.x;
@@ -281,9 +240,7 @@ function moveTongue() {
     }
 }
 
-/**
- * Displays the tongue (tip and line connection) and the frog (body)
- */
+ //Displays the tongue (tip and line connection) and the frog (body)
 function drawFrog() {
 
     //Frog gets darker as it gets more poisoned
@@ -314,55 +271,38 @@ function drawFrog() {
     pop();
 }
 
-
-  
-
-/**
- * Handles the tongue overlapping the fly
- */
-function checkTongueFlyOverlap() {
+//Handles the tongue overlapping the fly
+function checkTongueFlyOverlap(element) {
     // Get distance from tongue to fly
-    const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
-    // Check if it's an overlap
-    const eaten = (d < frog.tongue.size/2 + fly.size/2);
-    if (eaten) {
+    const d = dist(frog.tongue.x, frog.tongue.y, element.x, element.y);
+    if (d < frog.tongue.size/2 + element.size/2) {
         // Reset the fly
-        resetFly();
+        resetFly(element);
         // Bring back the tongue
         frog.tongue.state = "inbound";
-        health = min(maxHealth,health + 10)
+        //Health effect
+        health = health + element.healthEffect;
+        health = constrain(health, 0, maxHealth);
     }
 }
-/**
- * Handles the tongue overlapping the poison fly
- */
-function checkTonguePoisonOverlap() {
-    // Get distance from tongue to fly
-    const d = dist(frog.tongue.x, frog.tongue.y, poison.x, poison.y);
-    // Check if it's an overlap
-    const eaten = (d < frog.tongue.size/2 + poison.size/2);
-    if (eaten) {
-        // Reset the fly
-        resetPoisonFly();
-        // Bring back the tongue
-        frog.tongue.state = "inbound";
-        health = max(0,health - 100)
-    }
-    }
 
 
+//Resets the fly to the left with a random y
+function resetFly(element) {
+    element.x = 0;
+    element.y = random(0, 300);
+    element.startY = element.y
+}
 
-/**
- * Launch the tongue on click (if it's not launched yet)
- */
+//Launch the tongue on click (if it's not launched yet) 
 function mousePressed() {
     if (frog.tongue.state === "idle") {
         frog.tongue.state = "outbound";
     }
 }
 
-function drawHealthBar() {
-    
+// Draw the health bar
+function drawHealthBar() {   
     noStroke();
     fill(255, 0, 0);
     rect(10, 10, map(health, 0, maxHealth, 0, 200), 20);
