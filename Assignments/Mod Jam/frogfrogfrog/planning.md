@@ -10,17 +10,17 @@ The initial idea:
 
 The experience:
 
-> The user controls a frog at the bottom of the screen, they can shoot out the frog's tongue and catch a fly which is moving on the screen. If the tongue hits the fly it gets eaten.
+> The user controls a frog at the bottom of the screen, they can shoot out the frog's tongue and catch a fly which is moving on the screen. If the tongue hits the black fly it gets eaten, and a small amount of health is restored. The green fly depletes the frog's health a significant amount, however. As the frog loses it's health, signs of poisoning appear, like a change of color and a third eye.
 
 ## Breaking it down
 
 Basic things to do:
 
-- Draw the frog (image? a circle?)
-- Draw the tongue...
-- Move the frog (how? mouse? keyboard? breathing?)
-- Move the fly (in line? buzzing around? random?)
-- Figure out if the tongue hits the fly?
+- Draw the eyes
+- Make the fly move up and down
+- Add a poisonous fly
+- Add a health bar
+- Add an end screen
 
 Questions:
 
