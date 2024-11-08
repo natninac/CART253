@@ -1,6 +1,6 @@
 # Radiation Frog
 
-[Play it!](https://natninac.github.io/CART253/Assignments/Mod%20Jam/frogfrogfrog/)
+[Play it!](https://natninac.github.io/CART253/Assignments/Mod Jam/radiationFrog)
 
 
 ## Description
