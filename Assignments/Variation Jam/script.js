@@ -8,7 +8,9 @@
 
 "use strict";
 
-//Phrases that randomly flash
+/**
+ * Array of phrases that flash randomly
+ */
 let randomPhrases = [
   "YOU DESERVE IT",
   "ARE YOU SURE ABOUT THIS?",
@@ -18,26 +20,23 @@ let randomPhrases = [
 ];
 
 
-// Array for the words to guess
+/**
+ * Arrays for words appearing at different game states
+ */
 let words = ["test", "hangman", "word"];
-// Array for names
 let inmates = ["johnny", "herman", "eric"];
 
+//Game variables
 let secretWord = Array(6).fill('_'); //Last secret word
 let showGuiltyLetters = false; //When to show the secret letters
 let word; // Random word in the list
 let guessedWord; // Tracks the progress of the user
 let currentWordIndex = 0; // Tracks the index of the current word
-
-// Store correct guesses and wrong guesses
-let guessedLetters = [];
-let wrongGuesses = 0;
-
-// Store game stats
-let games = 0;
-let gamesWon = 0;
+let guessedLetters = []; // Letters already tried
+let wrongGuesses = 0; // Incorrect guesses
+let games = 0; // Total games played
+let gamesWon = 0; // Total games won
 let gameEnded = false; // Track if the game has already ended
-
 let state = "niceHangman"; // Starts with nice hangman game
 const maxGuesses = 10; // How many chances do you get at guessing the word?
 let finalStateLosses = 0; // How many lost games at final state
@@ -47,7 +46,9 @@ let currentPhrase = ""; // The phrase currently being displayed
 let showRandomText = false; // Whether to show the text
 let randomTextTimer = 0;    // Timer for how long to display the text
 
-// Array for all the hangman parts
+/**
+ * Array storing hangman parts
+ */
 let hangmanParts = [
     {type: "line", x1: 200, y1: 400, x2: 400, y2: 400}, // Base
     {type: "line", x1: 300, y1: 400, x2: 300, y2: 200}, // Pole
@@ -61,12 +62,18 @@ let hangmanParts = [
     {type: "line", x1: 400, y1: 330, x2: 420, y2: 360}  // Right leg
 ];
 
+/**
+ * Setup
+ */
 function setup() {
     createCanvas(600, 600);
     textAlign(CENTER, CENTER);
     startNewGame(); // New game at start
 }
 
+/**
+ * Draw
+ */
 function draw() {
   background(240);
       // If game ended, only draw the game over screen
