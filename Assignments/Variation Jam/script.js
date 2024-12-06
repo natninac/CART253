@@ -347,9 +347,10 @@ function handleRandomPhrases() {
             }
         }
     }
+    //Flashing effect
     else if (state === "niceHangman" && currentWordIndex >= 5) {
         if (!showRandomText) {  
-            randomTextTimer = 60;
+            randomTextTimer = 60; //Only 60 frames
             showRandomText = true;
         }
         
