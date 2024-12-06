@@ -1,7 +1,7 @@
 # Hangman
 Nat Nina
 
-[View this project online](https://natninac.github.io/CART253/Assignments/Art%20Jam/)
+[View this project online](https://natninac.github.io/CART253/Assignments/Variation%20Jam/)
 
 ## Description
 

@@ -34,15 +34,31 @@ let randomPhrases = [
  * Arrays for words appearing at different game states
  */
 let words = ["cat", "truth", "once", "memory", "justice", "silence"];
-let inmates = ["cameron", "earl", "jesse", "anthony", "kirk"];
+/**
+ * Inmate names and stories
+ */
 
-// Array for inmate stories that display after games
-let inmateStories = [
-   "Cameron Willingham was executed in 2004 for arson that killed his children. Fire experts later proved the investigation used outdated methods and the fire was likely accidental.", 
-   "Earl Washington Jr., an intelectually disabled man, gave a false confession in 1984. This led to his death row sentence, and he spent 17 years in prison, before being exonerated. He once came within nine days of execution.",
-   "Jesse Tafero was executed for murder in 1990 despite evidence suggesting he was innocent. His execution by electric chair was botched, leading to a very painful death. The key witness, Walter Rhodes, later confessed to committing the crime. His co-defendant, Sunny Jacobs, was eventually exonerated.",
-   "Anthony Porter came within 50 hours of execution before exoneration in 1999 after 16 years. His case helped suspend Illinois executions",
-   "Kirk Bloodsworth was the first death row inmate to be exonerated by DNA in 1993 after 8 years imprisoned. The real killer was found in 2003."
+let inmateData = [
+    {
+        name: "cameron",
+        story: "Cameron Willingham was executed in 2004 for arson that killed his children. Fire experts later proved the investigation used outdated methods and the fire was likely accidental."
+    },
+    {
+        name: "earl",
+        story: "Earl Washington Jr., an intelectually disabled man, gave a false confession in 1984. This led to his death row sentence, and he spent 17 years in prison, before being exonerated. He once came within nine days of execution."
+    },
+    {
+        name: "jesse",
+        story: "Jesse Tafero was executed for murder in 1990 despite evidence suggesting he was innocent. His execution by electric chair was botched, leading to a very painful death. The key witness, Walter Rhodes, later confessed to committing the crime. His co-defendant, Sunny Jacobs, was eventually exonerated."
+    },
+    {
+        name: "anthony",
+        story: "Anthony Porter came within 50 hours of execution before exoneration in 1999 after 16 years. His case helped suspend Illinois executions."
+    },
+    {
+        name: "kirk",
+        story: "Kirk Bloodsworth was the first death row inmate to be exonerated by DNA in 1993 after 8 years imprisoned. The real killer was found in 2003."
+    }
 ];
 
 //Game variables
@@ -166,9 +182,8 @@ function drawGameOver() {
         }
 
     textSize(16);
-    let currentInmate = inmates[currentWordIndex];
-    let storyIndex = (currentWordIndex - 1 + inmates.length) % inmates.length;
-    text(inmateStories[storyIndex], width / 2, height / 2, 550, 280);
+    let storyIndex = (currentWordIndex - 1 + inmateData.length) % inmateData.length;
+    text(inmateData[storyIndex].story, width / 2, height / 2, 550, 280);
     } else {
         // Regular win/loss messages for non-final state
         if (!guessedWord.includes('_')) {
@@ -206,7 +221,7 @@ function startNewGame() {
     
     //For regular and inmate states
     if (state !== "finalHangman") {
-        let wordList = state === "niceHangman" ? words : inmates; // Assigns an array for both states
+        let wordList = state === "niceHangman" ? words : inmateData.map(inmate => inmate.name); // Assigns an array for both states
         word = wordList[currentWordIndex].split(''); //Split words into letters
         currentWordIndex = (currentWordIndex + 1) % wordList.length; // Cycles through the word array
         guessedWord = Array(word.length).fill('_'); // Array of underscores for each word
